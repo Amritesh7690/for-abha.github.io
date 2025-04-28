@@ -1,78 +1,61 @@
-body {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    font-family: 'Libre Baskerville', serif;
-    background-color: #fdf6f0;
+function playMusic(num) {
+    const audio = document.getElementById('audio-player');
+    audio.src = `assets/music/song${num}.mp3`;
+    audio.play();
 }
 
-#header {
-    text-align: center;
-    margin-top: 30px;
-    font-size: 2.5em;
+function openPopup(name) {
+    document.getElementById('popup').classList.remove('hidden');
+    document.getElementById('popup-img').src = `assets/popups/${name}.png`;
 }
 
-#floating-icons img, #center-letter img {
-    width: 60px;
-    height: 60px;
-    cursor: pointer;
-    position: absolute;
-    animation: float 10s infinite ease-in-out;
+function closePopup() {
+    document.getElementById('popup').classList.add('hidden');
 }
 
-#center-letter img {
-    width: 150px;
-    height: 150px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    animation: none;
+// Balloon animation
+const canvas = document.getElementById('balloon-canvas');
+const ctx = canvas.getContext('2d');
+let balloons = [];
+
+function randomColor() {
+    const colors = ['#ffc1cc', '#add8e6', '#fff5ba'];
+    return colors[Math.floor(Math.random() * colors.length)];
 }
 
-#popup {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+function createBalloon() {
+    return {
+        x: Math.random() * canvas.width,
+        y: canvas.height + Math.random() * 100,
+        radius: 20 + Math.random() * 10,
+        color: randomColor(),
+        speed: 1 + Math.random() * 2
+    };
 }
 
-#popup.hidden {
-    display: none;
+function drawBalloons() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    balloons.forEach((balloon, index) => {
+        ctx.beginPath();
+        ctx.arc(balloon.x, balloon.y, balloon.radius, 0, Math.PI * 2);
+        ctx.fillStyle = balloon.color;
+        ctx.fill();
+        balloon.y -= balloon.speed;
+        if (balloon.y + balloon.radius < 0) {
+            balloons[index] = createBalloon();
+        }
+    });
+    requestAnimationFrame(drawBalloons);
 }
 
-#popup img {
-    max-width: 80%;
-    max-height: 80%;
+function setup() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    for (let i = 0; i < 50; i++) {
+        balloons.push(createBalloon());
+    }
+    drawBalloons();
 }
 
-#close {
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    color: white;
-    font-size: 30px;
-    cursor: pointer;
-}
-
-/* simple floating animation */
-@keyframes float {
-    0% {transform: translateY(0);}
-    50% {transform: translateY(-20px);}
-    100% {transform: translateY(0);}
-}
-
-/* Balloon canvas */
-#balloon-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-}
+window.addEventListener('resize', setup);
+setup();
