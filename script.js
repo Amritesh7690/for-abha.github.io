@@ -13,7 +13,34 @@ function closePopup() {
     document.getElementById('popup').classList.add('hidden');
 }
 
-// Balloon animation
+// Create and scatter icons randomly
+function createFloatingIcons() {
+    const container = document.getElementById('floating-icons');
+
+    // Music icons
+    for (let i = 1; i <= 5; i++) {
+        const img = document.createElement('img');
+        img.src = `assets/images/music${i}.png`;
+        img.className = 'icon';
+        img.style.top = Math.random() * 90 + '%';
+        img.style.left = Math.random() * 90 + '%';
+        img.onclick = () => playMusic(i);
+        container.appendChild(img);
+    }
+
+    // Quote icons
+    for (let i = 1; i <= 7; i++) {
+        const img = document.createElement('img');
+        img.src = `assets/images/quote${i}_icon.png`;
+        img.className = 'icon';
+        img.style.top = Math.random() * 90 + '%';
+        img.style.left = Math.random() * 90 + '%';
+        img.onclick = () => openPopup(`quote${i}`);
+        container.appendChild(img);
+    }
+}
+
+// Balloons animation
 const canvas = document.getElementById('balloon-canvas');
 const ctx = canvas.getContext('2d');
 let balloons = [];
@@ -48,14 +75,20 @@ function drawBalloons() {
     requestAnimationFrame(drawBalloons);
 }
 
-function setup() {
+function setupCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    balloons = [];
     for (let i = 0; i < 50; i++) {
         balloons.push(createBalloon());
     }
     drawBalloons();
 }
 
-window.addEventListener('resize', setup);
-setup();
+// Start everything
+window.onload = () => {
+    createFloatingIcons();
+    setupCanvas();
+};
+
+window.addEventListener('resize', setupCanvas);
