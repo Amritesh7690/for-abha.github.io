@@ -16,13 +16,14 @@ function closePopup() {
     document.getElementById('popup').classList.add('hidden');
 }
 
-// Canvas setup for balloons, stardust, confetti
+// Canvas setup for balloons, stardust, confetti, sparkles
 const canvas = document.getElementById('balloon-canvas');
 const ctx = canvas.getContext('2d');
 
 let balloons = [];
 let stardust = [];
 let confetti = [];
+let sparkles = [];
 
 function randomColor() {
     const colors = ['#ffc1cc', '#add8e6', '#fff5ba'];
@@ -36,7 +37,7 @@ function createBalloon() {
         radius: 20 + Math.random() * 10,
         color: randomColor(),
         speed: 1 + Math.random() * 2,
-        alive: true // For popping
+        alive: true
     };
 }
 
@@ -63,6 +64,19 @@ function createConfetti() {
     };
 }
 
+function createSparkle(x, y) {
+    for (let i = 0; i < 10; i++) {
+        sparkles.push({
+            x: x,
+            y: y,
+            size: 2 + Math.random() * 2,
+            dx: (Math.random() - 0.5) * 4,
+            dy: (Math.random() - 0.5) * 4,
+            life: 30 // frames to live
+        });
+    }
+}
+
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -81,7 +95,7 @@ function draw() {
 
     // Draw balloons
     balloons.forEach((balloon, index) => {
-        if (!balloon.alive) return; // Skip popped balloons
+        if (!balloon.alive) return;
         ctx.beginPath();
         ctx.arc(balloon.x, balloon.y, balloon.radius, 0, Math.PI * 2);
         ctx.fillStyle = balloon.color;
@@ -110,6 +124,20 @@ function draw() {
         }
     });
 
+    // Draw sparkles
+    sparkles.forEach((sparkle, index) => {
+        ctx.beginPath();
+        ctx.arc(sparkle.x, sparkle.y, sparkle.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${sparkle.life / 30})`; // fade out
+        ctx.fill();
+        sparkle.x += sparkle.dx;
+        sparkle.y += sparkle.dy;
+        sparkle.life--;
+    });
+
+    // Remove dead sparkles
+    sparkles = sparkles.filter(sparkle => sparkle.life > 0);
+
     requestAnimationFrame(draw);
 }
 
@@ -119,6 +147,7 @@ function setupCanvas() {
     balloons = [];
     stardust = [];
     confetti = [];
+    sparkles = [];
 
     for (let i = 0; i < 50; i++) {
         balloons.push(createBalloon());
@@ -126,14 +155,14 @@ function setupCanvas() {
     for (let i = 0; i < 100; i++) {
         stardust.push(createStardust());
     }
-    for (let i = 0; i < 90; i++) { // Tripled confetti
+    for (let i = 0; i < 90; i++) {
         confetti.push(createConfetti());
     }
 
     draw();
 }
 
-// Balloon popping on click
+// Balloon popping on click, with sparkles
 canvas.addEventListener('click', (e) => {
     const rect = canvas.getBoundingClientRect();
     const mouseX = e.clientX - rect.left;
@@ -143,8 +172,9 @@ canvas.addEventListener('click', (e) => {
         const dx = balloon.x - mouseX;
         const dy = balloon.y - mouseY;
         const distance = Math.sqrt(dx * dx + dy * dy);
-        if (distance < balloon.radius) {
-            balloon.alive = false; // pop the balloon
+        if (distance < balloon.radius && balloon.alive) {
+            balloon.alive = false;
+            createSparkle(balloon.x, balloon.y);
         }
     });
 });
