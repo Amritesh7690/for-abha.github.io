@@ -16,7 +16,7 @@ function closePopup() {
     document.getElementById('popup').classList.add('hidden');
 }
 
-// Canvas setup for balloons, stardust, and confetti
+// Canvas setup for balloons, stardust, confetti
 const canvas = document.getElementById('balloon-canvas');
 const ctx = canvas.getContext('2d');
 
@@ -24,24 +24,22 @@ let balloons = [];
 let stardust = [];
 let confetti = [];
 
-// Random pastel color for balloons
 function randomColor() {
     const colors = ['#ffc1cc', '#add8e6', '#fff5ba'];
     return colors[Math.floor(Math.random() * colors.length)];
 }
 
-// Create a balloon object
 function createBalloon() {
     return {
         x: Math.random() * canvas.width,
         y: canvas.height + Math.random() * 100,
         radius: 20 + Math.random() * 10,
         color: randomColor(),
-        speed: 1 + Math.random() * 2
+        speed: 1 + Math.random() * 2,
+        alive: true // For popping
     };
 }
 
-// Create a stardust particle
 function createStardust() {
     return {
         x: Math.random() * canvas.width,
@@ -52,7 +50,6 @@ function createStardust() {
     };
 }
 
-// Create a confetti piece
 function createConfetti() {
     return {
         x: Math.random() * canvas.width,
@@ -66,7 +63,6 @@ function createConfetti() {
     };
 }
 
-// Drawing all particles
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -85,6 +81,7 @@ function draw() {
 
     // Draw balloons
     balloons.forEach((balloon, index) => {
+        if (!balloon.alive) return; // Skip popped balloons
         ctx.beginPath();
         ctx.arc(balloon.x, balloon.y, balloon.radius, 0, Math.PI * 2);
         ctx.fillStyle = balloon.color;
@@ -116,7 +113,6 @@ function draw() {
     requestAnimationFrame(draw);
 }
 
-// Setup particles on load and resize
 function setupCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -130,17 +126,32 @@ function setupCanvas() {
     for (let i = 0; i < 100; i++) {
         stardust.push(createStardust());
     }
-    for (let i = 0; i < 90; i++) {
+    for (let i = 0; i < 90; i++) { // Tripled confetti
         confetti.push(createConfetti());
     }
 
     draw();
 }
 
+// Balloon popping on click
+canvas.addEventListener('click', (e) => {
+    const rect = canvas.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+
+    balloons.forEach(balloon => {
+        const dx = balloon.x - mouseX;
+        const dy = balloon.y - mouseY;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        if (distance < balloon.radius) {
+            balloon.alive = false; // pop the balloon
+        }
+    });
+});
+
 // Initial setup
 window.onload = () => {
     setupCanvas();
 };
 
-// Redraw everything on window resize
 window.addEventListener('resize', setupCanvas);
