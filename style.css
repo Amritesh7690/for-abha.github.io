@@ -15,6 +15,7 @@ html, body {
     font-size: 2.5em;
     z-index: 2;
     position: relative;
+    animation: heartbeat 2s ease-in-out infinite;
 }
 
 #floating-icons {
@@ -28,14 +29,13 @@ html, body {
 
 .icon {
     position: absolute;
-    width: 100px;
+    width: 100px; /* doubled size */
     height: 100px;
     object-fit: contain;
-    animation: gentleFloat 6s ease-in-out infinite alternate;
+    animation: gentleFloatRotate 8s ease-in-out infinite alternate;
     cursor: pointer;
 }
 
-/* Center love letter */
 #center-letter {
     position: absolute;
     top: 50%;
@@ -45,13 +45,12 @@ html, body {
 }
 
 #center-letter img {
-    width: 500px;
+    width: 500px; /* doubled size */
     max-width: 90%;
     height: auto;
     cursor: pointer;
 }
 
-/* Popup */
 #popup {
     position: fixed;
     top: 0;
@@ -84,14 +83,29 @@ html, body {
     z-index: 6;
 }
 
-/* Gentle floating animation */
-@keyframes gentleFloat {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-    100% { transform: translateY(0px); }
+/* Gentle floating + rotating */
+@keyframes gentleFloatRotate {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-10px) rotate(5deg);
+    }
+    100% {
+        transform: translateY(0px) rotate(0deg);
+    }
 }
 
-/* Balloon Canvas */
+/* Heartbeat for header */
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.03); }
+    50% { transform: scale(1); }
+    75% { transform: scale(1.03); }
+    100% { transform: scale(1); }
+}
+
+/* Balloon canvas */
 #balloon-canvas {
     position: fixed;
     top: 0;
