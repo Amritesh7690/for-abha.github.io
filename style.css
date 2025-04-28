@@ -12,22 +12,25 @@ body {
     font-size: 2.5em;
 }
 
-#floating-icons img, #center-letter img {
+.icon {
+    position: absolute;
     width: 60px;
     height: 60px;
     cursor: pointer;
-    position: absolute;
-    animation: float 10s infinite ease-in-out;
+    animation: float 8s infinite ease-in-out;
 }
 
-#center-letter img {
-    width: 150px;
-    height: 150px;
+#center-letter {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    animation: none;
+}
+
+#center-letter img {
+    max-width: 250px;
+    height: auto;
+    cursor: pointer;
 }
 
 #popup {
@@ -40,6 +43,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 10;
 }
 
 #popup.hidden {
@@ -60,14 +64,14 @@ body {
     cursor: pointer;
 }
 
-/* simple floating animation */
+/* Floating gentle animation */
 @keyframes float {
-    0% {transform: translateY(0);}
-    50% {transform: translateY(-20px);}
-    100% {transform: translateY(0);}
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
 }
 
-/* Balloon canvas */
+/* Balloon canvas at the back */
 #balloon-canvas {
     position: fixed;
     top: 0;
