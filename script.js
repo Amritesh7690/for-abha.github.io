@@ -21,9 +21,9 @@ function createFloatingIcons() {
         const img = document.createElement('img');
         img.src = `assets/images/music${i}.png`;
         img.className = 'icon';
-        img.style.top = Math.random() * 80 + 'vh'; // vh = viewport height
-        img.style.left = Math.random() * 90 + 'vw'; // vw = viewport width
-        img.style.animationDelay = (Math.random() * 20) + 's'; // random float timing
+        img.style.top = Math.random() * 80 + 'vh';
+        img.style.left = Math.random() * 90 + 'vw';
+        img.style.animationDelay = (Math.random() * 3) + 's';
         img.onclick = () => playMusic(i);
         container.appendChild(img);
     }
@@ -35,13 +35,13 @@ function createFloatingIcons() {
         img.className = 'icon';
         img.style.top = Math.random() * 80 + 'vh';
         img.style.left = Math.random() * 90 + 'vw';
-        img.style.animationDelay = (Math.random() * 20) + 's';
+        img.style.animationDelay = (Math.random() * 3) + 's';
         img.onclick = () => openPopup(`quote${i}`);
         container.appendChild(img);
     }
 }
 
-// Balloons (already correctly set up before)...
+// Balloons
 const canvas = document.getElementById('balloon-canvas');
 const ctx = canvas.getContext('2d');
 let balloons = [];
@@ -86,7 +86,6 @@ function setupCanvas() {
     drawBalloons();
 }
 
-// Load everything
 window.onload = () => {
     createFloatingIcons();
     setupCanvas();
