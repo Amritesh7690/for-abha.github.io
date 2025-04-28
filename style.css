@@ -17,11 +17,11 @@ body {
 
 .icon {
     position: absolute;
-    width: 60px; /* fixed width */
-    height: 60px; /* fixed height */
+    width: 60px;
+    height: 60px;
     object-fit: contain;
     cursor: pointer;
-    animation: float 8s infinite ease-in-out;
+    animation: floatMove 30s linear infinite;
     z-index: 2;
 }
 
@@ -34,7 +34,8 @@ body {
 }
 
 #center-letter img {
-    max-width: 250px;
+    width: 250px;
+    max-width: 90%;
     height: auto;
     cursor: pointer;
 }
@@ -71,13 +72,19 @@ body {
     z-index: 6;
 }
 
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
-    100% { transform: translateY(0px); }
+/* Floating + moving animation */
+@keyframes floatMove {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    50% {
+        transform: translate(20px, -30px) rotate(10deg);
+    }
+    100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
 }
 
-/* Balloon background */
 #balloon-canvas {
     position: fixed;
     top: 0;
