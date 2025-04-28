@@ -4,7 +4,9 @@ html, body {
     width: 100vw;
     height: 100vh;
     overflow: hidden;
-    background-color: #fdf6f0;
+    background: linear-gradient(-45deg, #fdf6f0, #ffe4e1, #fff8dc, #fdf6f0);
+    background-size: 400% 400%;
+    animation: backgroundShift 30s ease infinite;
     font-family: 'Libre Baskerville', serif;
     position: relative;
 }
@@ -29,7 +31,7 @@ html, body {
 
 .icon {
     position: absolute;
-    width: 100px; /* Doubled size */
+    width: 100px;
     height: 100px;
     object-fit: contain;
     animation: gentleFloatRotateFade 8s ease-in-out infinite alternate;
@@ -45,7 +47,7 @@ html, body {
 }
 
 #center-letter img {
-    width: 500px; /* Doubled size */
+    width: 500px;
     max-width: 90%;
     height: auto;
     cursor: pointer;
@@ -83,7 +85,7 @@ html, body {
     z-index: 6;
 }
 
-/* New gentle floating + rotating + fading animation */
+/* Animations */
 @keyframes gentleFloatRotateFade {
     0% {
         transform: translateY(0px) rotate(0deg);
@@ -99,21 +101,4 @@ html, body {
     }
 }
 
-/* Heartbeat for the header */
-@keyframes heartbeat {
-    0% { transform: scale(1); }
-    25% { transform: scale(1.03); }
-    50% { transform: scale(1); }
-    75% { transform: scale(1.03); }
-    100% { transform: scale(1); }
-}
-
-/* Balloon canvas */
-#balloon-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 0;
-}
+@keyframes he
