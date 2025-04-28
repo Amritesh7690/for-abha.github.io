@@ -1,50 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Love Carnival 🎡</title>
-  <link rel="stylesheet" href="./style.css">
+    <meta charset="UTF-8">
+    <title>Happy Birthday, Abha</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div id="background"></div>
+    <h1 id="header">Happy Birthday, Abha</h1>
 
-<h1 class="title">🎡 Welcome to the Love Carnival 🎠</h1>
+    <div id="floating-icons">
+        <!-- Music icons -->
+        <div class="music-icons">
+            <img src="assets/images/music1.png" onclick="playMusic(1)" alt="Music 1">
+            <img src="assets/images/music2.png" onclick="playMusic(2)" alt="Music 2">
+            <img src="assets/images/music3.png" onclick="playMusic(3)" alt="Music 3">
+            <img src="assets/images/music4.png" onclick="playMusic(4)" alt="Music 4">
+            <img src="assets/images/music5.png" onclick="playMusic(5)" alt="Music 5">
+        </div>
 
-<!-- Music Booths -->
-<div class="booth music" data-song="song1.mp3">🎶</div>
-<div class="booth music" data-song="song2.mp3">🎵</div>
-<div class="booth music" data-song="song3.mp3">🎼</div>
-<div class="booth music" data-song="song4.mp3">🎹</div>
-<div class="booth music" data-song="song5.mp3">🎷</div>
+        <!-- Quote icons -->
+        <div class="quote-icons">
+            <img src="assets/images/quote1_icon.png" onclick="openPopup('quote1')" alt="Quote 1">
+            <img src="assets/images/quote2_icon.png" onclick="openPopup('quote2')" alt="Quote 2">
+            <!-- add the rest similarly -->
+        </div>
+    </div>
 
-<!-- Quote Booths -->
-<div class="booth quote" data-quote="0">💌</div>
-<div class="booth quote" data-quote="1">📜</div>
-<div class="booth quote" data-quote="2">📝</div>
-<div class="booth quote" data-quote="3">📖</div>
-<div class="booth quote" data-quote="4">✉️</div>
-<div class="booth quote" data-quote="5">✍️</div>
-<div class="booth quote" data-quote="6">🕊️</div>
+    <!-- Center love letter -->
+    <div id="center-letter">
+        <img src="assets/images/loveletter_icon.png" onclick="openPopup('loveletter')" alt="Love Letter">
+    </div>
 
-<!-- Special Big Letter Booth -->
-<div class="booth big-letter">💖</div>
+    <!-- Popup modal -->
+    <div id="popup" class="hidden">
+        <span id="close" onclick="closePopup()">✖</span>
+        <img id="popup-img" src="">
+    </div>
 
-<!-- Balloon Game -->
-<div class="booth balloons">🎈</div>
+    <!-- Background animation -->
+    <canvas id="balloon-canvas"></canvas>
 
-<!-- Doodle Booth -->
-<div class="booth doodle">🎨</div>
+    <audio id="audio-player" controls style="display:none;"></audio>
 
-<audio id="player" controls style="display:none;"></audio>
-
-<!-- Popup Modal -->
-<div id="popup" class="hidden">
-  <div id="popup-content"></div>
-</div>
-
-<script src="./script.js"></script>
-
+    <script src="script.js"></script>
 </body>
 </html>
