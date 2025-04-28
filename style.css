@@ -101,4 +101,27 @@ html, body {
     }
 }
 
-@keyframes he
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.03); }
+    50% { transform: scale(1); }
+    75% { transform: scale(1.03); }
+    100% { transform: scale(1); }
+}
+
+/* Background soft color shift */
+@keyframes backgroundShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Balloon Canvas */
+#balloon-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+}
