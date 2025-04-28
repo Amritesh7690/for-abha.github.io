@@ -29,10 +29,10 @@ html, body {
 
 .icon {
     position: absolute;
-    width: 100px; /* doubled size */
+    width: 100px; /* Doubled size */
     height: 100px;
     object-fit: contain;
-    animation: gentleFloatRotate 8s ease-in-out infinite alternate;
+    animation: gentleFloatRotateFade 8s ease-in-out infinite alternate;
     cursor: pointer;
 }
 
@@ -45,7 +45,7 @@ html, body {
 }
 
 #center-letter img {
-    width: 500px; /* doubled size */
+    width: 500px; /* Doubled size */
     max-width: 90%;
     height: auto;
     cursor: pointer;
@@ -83,20 +83,23 @@ html, body {
     z-index: 6;
 }
 
-/* Gentle floating + rotating */
-@keyframes gentleFloatRotate {
+/* New gentle floating + rotating + fading animation */
+@keyframes gentleFloatRotateFade {
     0% {
         transform: translateY(0px) rotate(0deg);
+        opacity: 0.8;
     }
     50% {
         transform: translateY(-10px) rotate(5deg);
+        opacity: 1;
     }
     100% {
         transform: translateY(0px) rotate(0deg);
+        opacity: 0.8;
     }
 }
 
-/* Heartbeat for header */
+/* Heartbeat for the header */
 @keyframes heartbeat {
     0% { transform: scale(1); }
     25% { transform: scale(1.03); }
