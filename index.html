@@ -1,48 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Happy Birthday, Abha</title>
-    <link rel="stylesheet" href="style.css">
-</head>
 <body>
-
     <h1 id="header">Happy Birthday, Abha</h1>
 
-    <div id="floating-icons">
-        <!-- Music icons -->
-        <div class="music-icons">
-            <img src="assets/images/music1.png" onclick="playMusic(1)" alt="Music 1">
-            <img src="assets/images/music2.png" onclick="playMusic(2)" alt="Music 2">
-            <img src="assets/images/music3.png" onclick="playMusic(3)" alt="Music 3">
-            <img src="assets/images/music4.png" onclick="playMusic(4)" alt="Music 4">
-            <img src="assets/images/music5.png" onclick="playMusic(5)" alt="Music 5">
-        </div>
+    <!-- Floating icons container -->
+    <div id="floating-icons"></div>
 
-        <!-- Quote icons -->
-        <div class="quote-icons">
-            <img src="assets/images/quote1_icon.png" onclick="openPopup('quote1')" alt="Quote 1">
-            <img src="assets/images/quote2_icon.png" onclick="openPopup('quote2')" alt="Quote 2">
-            <!-- add the rest similarly -->
-        </div>
-    </div>
-
-    <!-- Center love letter -->
+    <!-- Center static love letter -->
     <div id="center-letter">
         <img src="assets/images/loveletter_icon.png" onclick="openPopup('loveletter')" alt="Love Letter">
     </div>
 
-    <!-- Popup modal -->
+    <!-- Popup Modal -->
     <div id="popup" class="hidden">
         <span id="close" onclick="closePopup()">✖</span>
         <img id="popup-img" src="">
     </div>
 
-    <!-- Background animation -->
     <canvas id="balloon-canvas"></canvas>
 
     <audio id="audio-player" controls style="display:none;"></audio>
 
     <script src="script.js"></script>
 </body>
-</html>
